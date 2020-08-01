@@ -1,7 +1,15 @@
-﻿<?xml version='1.0' encoding='utf-8'?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
   <Profiles>
     <Profile Name="(Default)" />
   </Profiles>
-  <Settings />
+  <Settings>
+    <Setting Name="DelayMs" Type="System.Int64" Scope="User">
+      <Value Profile="(Default)">300000</Value>
+    </Setting>
+    <Setting Name="IntervalMs" Type="System.Int64" Scope="User">
+      <Value Profile="(Default)">30000</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>
+

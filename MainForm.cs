@@ -1,9 +1,6 @@
 using System;
 using System.ComponentModel;
-using System.Drawing;
-using System.Resources;
 using System.Windows.Forms;
-using MacroReminder.Properties;
 
 namespace MacroReminder
 {
@@ -11,13 +8,10 @@ namespace MacroReminder
     {
         private const long DefaultSmallTickIntervalMs = 1000;
         
-        private const long DefaultBigTickIntervalMs = 30 * 1000;
-
-        private const long DefaultDelayTimeMs = 5 * 60 * 1000;
-
         private Ticker _ticker;
         private NotificationPlayer _notificationPlayer;
         private MacroReminder _macroReminder;
+        private MacroReminderSettings _macroReminderSettings;
         private bool _started;
 
         public MainForm()
@@ -27,15 +21,16 @@ namespace MacroReminder
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            _ticker = new Ticker(DefaultSmallTickIntervalMs, DefaultBigTickIntervalMs);
+            _macroReminderSettings = new MacroReminderSettings();
+            _ticker = new Ticker(DefaultSmallTickIntervalMs, _macroReminderSettings.IntervalMs);
             _notificationPlayer = new NotificationPlayer();
-            _macroReminder = new MacroReminder(DefaultDelayTimeMs);
+            _macroReminder = new MacroReminder(_macroReminderSettings.DelayMs);
             _macroReminder.OnReminder += _notificationPlayer.PlayNotification;
             _ticker.OnSmallTick += elapsedTimeMs => Invoke(new Action(() => UpdateTimerValue(elapsedTimeMs)));
             _ticker.OnBigTick += elapsedTimeMs => _macroReminder.BigTick(elapsedTimeMs);
 
-            delayTimeSecondsTextBox.Text = (DefaultDelayTimeMs / 1000).ToString();
-            intervalTimeSecondsTextBox.Text = (DefaultBigTickIntervalMs / 1000).ToString();
+            delayTimeSecondsTextBox.Text = (_macroReminderSettings.DelayMs / 1000).ToString();
+            intervalTimeSecondsTextBox.Text = (_macroReminderSettings.IntervalMs / 1000).ToString();
         }
 
         private void MainForm_Closing(object sender, CancelEventArgs e)
@@ -66,8 +61,12 @@ namespace MacroReminder
             _started = true;
             startStopButton.Text = @"Stop";
             timerValueLabel.Text = @"0:00";
-            _macroReminder.DelayTimeMs = delayTimeSeconds * 1000;
-            _ticker.BigTickIntervalMs = intervalTimeSeconds * 1000;
+            long delayTimeMs = delayTimeSeconds * 1000;
+            long intervalTimeMs = intervalTimeSeconds * 1000;
+            _macroReminderSettings.DelayMs = delayTimeMs;
+            _macroReminderSettings.IntervalMs = intervalTimeMs;
+            _macroReminder.DelayTimeMs = delayTimeMs;
+            _ticker.BigTickIntervalMs = intervalTimeMs;
             _ticker.Start();
         }
 
