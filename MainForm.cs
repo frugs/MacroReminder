@@ -12,11 +12,18 @@ namespace MacroReminder
         private NotificationPlayer _notificationPlayer;
         private MacroReminder _macroReminder;
         private MacroReminderSettings _macroReminderSettings;
+        private HotKeyManager _hotKeyManager;
         private bool _started;
 
         public MainForm()
         {
             InitializeComponent();
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
+            _hotKeyManager?.HandleWindowMessage(m);
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -25,9 +32,15 @@ namespace MacroReminder
             _ticker = new Ticker(DefaultSmallTickIntervalMs, _macroReminderSettings.IntervalMs);
             _notificationPlayer = new NotificationPlayer();
             _macroReminder = new MacroReminder(_macroReminderSettings.DelayMs);
+            _hotKeyManager = new HotKeyManager(Handle);
+            
             _macroReminder.OnReminder += _notificationPlayer.PlayNotification;
             _ticker.OnSmallTick += elapsedTimeMs => Invoke(new Action(() => UpdateTimerValue(elapsedTimeMs)));
             _ticker.OnBigTick += elapsedTimeMs => _macroReminder.BigTick(elapsedTimeMs);
+
+            _hotKeyManager.OnHotKey += _notificationPlayer.PlayNotification;
+            _hotKeyManager.OnHotKey += StartStop;
+            _hotKeyManager.RegisterHotKey();
 
             delayTimeSecondsTextBox.Text = (_macroReminderSettings.DelayMs / 1000).ToString();
             intervalTimeSecondsTextBox.Text = (_macroReminderSettings.IntervalMs / 1000).ToString();
@@ -35,6 +48,7 @@ namespace MacroReminder
 
         private void MainForm_Closing(object sender, CancelEventArgs e)
         {
+            _hotKeyManager.UnregisterHotKey();
             _ticker.Stop();
         }
 
@@ -77,7 +91,7 @@ namespace MacroReminder
             _ticker.Stop();
         }
 
-        private void startStopButton_Click(object sender, EventArgs e)
+        private void StartStop()
         {
             if (!_started)
             {
@@ -87,6 +101,11 @@ namespace MacroReminder
             {
                 StopTicker();
             }
+        }
+
+        private void startStopButton_Click(object sender, EventArgs e)
+        {
+            StartStop();
         }
 
         private void resetButton_Click(object sender, EventArgs e)

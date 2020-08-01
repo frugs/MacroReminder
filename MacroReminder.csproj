@@ -46,6 +46,7 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="HotKeyManager.cs" />
         <Compile Include="MacroReminder.cs" />
         <Compile Include="MacroReminderSettings.cs" />
         <Compile Include="MainForm.cs">
