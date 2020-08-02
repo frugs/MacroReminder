@@ -8,7 +8,7 @@ namespace MacroReminder
     public partial class MainForm : Form
     {
         private const long DefaultSmallTickIntervalMs = 1000;
-        
+
         private Ticker _ticker;
         private NotificationPlayer _notificationPlayer;
         private MacroReminder _macroReminder;
@@ -35,6 +35,11 @@ namespace MacroReminder
             _macroReminder = new MacroReminder(_macroReminderSettings.DelayMs);
             _hotKeyManager = new HotKeyManager(Handle);
 
+            if (!string.IsNullOrEmpty(_macroReminderSettings.CustomNotificationSound))
+            {
+                SafeSetCustomNotificationSoundFromPath(_macroReminderSettings.CustomNotificationSound);
+            }
+
             _macroReminder.OnReminder += () => Invoke(new Action(_notificationPlayer.PlayNotification));
             _ticker.OnSmallTick += elapsedTimeMs => Invoke(new Action(() => UpdateTimerValue(elapsedTimeMs)));
             _ticker.OnBigTick += elapsedTimeMs => _macroReminder.BigTick(elapsedTimeMs);
@@ -51,6 +56,24 @@ namespace MacroReminder
             _hotKeyManager.UnregisterHotKey();
             _ticker.Stop();
         }
+        
+        private bool SafeSetCustomNotificationSoundFromPath(string path)
+        {
+            try
+            {
+                using (var fileStream = File.OpenRead(path))
+                {
+                    _notificationPlayer.SetCustomNotificationSound(fileStream);
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(@"Failed to load custom sound", @"Error", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                return false;
+            }
+        }
 
         private void UpdateTimerValue(long elapsedTimeMs)
         {
@@ -65,13 +88,14 @@ namespace MacroReminder
                 MessageBox.Show(@"Invalid delay!", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            
-            if (!long.TryParse(intervalTimeSecondsTextBox.Text, out var intervalTimeSeconds) || intervalTimeSeconds <= 0)
+
+            if (!long.TryParse(intervalTimeSecondsTextBox.Text, out var intervalTimeSeconds) ||
+                intervalTimeSeconds <= 0)
             {
                 MessageBox.Show(@"Invalid interval!", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            
+
             _started = true;
             startStopButton.Text = @"Stop";
             timerValueLabel.Text = @"0:00";
@@ -82,7 +106,7 @@ namespace MacroReminder
             _macroReminder.DelayTimeMs = delayTimeMs;
             _ticker.BigTickIntervalMs = intervalTimeMs;
             _ticker.Start();
-            
+
             _notificationPlayer.PlayStartNotification();
         }
 
@@ -92,8 +116,6 @@ namespace MacroReminder
             _notificationPlayer.PlayStopNotification();
             startStopButton.Text = @"Start";
             _ticker.Stop();
-            
-            
         }
 
         private void StartStop()
@@ -125,7 +147,7 @@ namespace MacroReminder
                 StartTicker();
             }
         }
-        
+
         private void pickSoundButton_Click(object sender, EventArgs e)
         {
             var openFileDialogue = new OpenFileDialog();
@@ -133,10 +155,10 @@ namespace MacroReminder
             {
                 return;
             }
-            
-            using (var fileStream = File.OpenRead(openFileDialogue.FileName))
+
+            if (SafeSetCustomNotificationSoundFromPath(openFileDialogue.FileName))
             {
-                _notificationPlayer.SetCustomNotificationSound(fileStream);
+                _macroReminderSettings.CustomNotificationSound = openFileDialogue.FileName;
             }
         }
 

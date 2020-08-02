@@ -46,5 +46,17 @@ namespace MacroReminder.Properties {
                 this["IntervalMs"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CustomNotificationSound {
+            get {
+                return ((string)(this["CustomNotificationSound"]));
+            }
+            set {
+                this["CustomNotificationSound"] = value;
+            }
+        }
     }
 }

@@ -10,6 +10,9 @@
     <Setting Name="IntervalMs" Type="System.Int64" Scope="User">
       <Value Profile="(Default)">30000</Value>
     </Setting>
+    <Setting Name="CustomNotificationSound" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>
 

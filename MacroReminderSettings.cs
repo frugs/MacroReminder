@@ -21,5 +21,15 @@ namespace MacroReminder
                 Properties.Settings.Default.Save();
             }
         }
+
+        public string CustomNotificationSound
+        {
+            get => Properties.Settings.Default.CustomNotificationSound;
+            set
+            {
+                Properties.Settings.Default.CustomNotificationSound = value;
+                Properties.Settings.Default.Save();
+            }
+        }
     }
 }
