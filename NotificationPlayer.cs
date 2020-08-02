@@ -1,6 +1,8 @@
 using System;
+using System.IO;
 using System.Media;
 using System.Reflection;
+using JetBrains.Annotations;
 
 namespace MacroReminder
 {
@@ -19,6 +21,8 @@ namespace MacroReminder
         private readonly Lazy<SoundPlayer> _stopNotificationSound =
             new Lazy<SoundPlayer>(() => CreateFromResource(StopNotificationResourcePath));
 
+        [CanBeNull] private SoundPlayer _customNotificationSound;
+
         private static SoundPlayer CreateFromResource(string path)
         {
             var assembly = Assembly.GetExecutingAssembly();
@@ -28,7 +32,14 @@ namespace MacroReminder
 
         public void PlayNotification()
         {
-            _genericNotificationSound.Value.Play();
+            if (_customNotificationSound != null)
+            {
+                _customNotificationSound.Play();
+            }
+            else
+            {
+                _genericNotificationSound.Value.Play();
+            }
         }
 
         public void PlayStartNotification()
@@ -39,6 +50,17 @@ namespace MacroReminder
         public void PlayStopNotification()
         {
             _stopNotificationSound.Value.Play();
+        }
+
+        public void SetCustomNotificationSound(Stream fileStream)
+        {
+            _customNotificationSound = new SoundPlayer(fileStream);
+            _customNotificationSound.Load();
+        }
+
+        public void SetDefaultNotificationSound()
+        {
+            _customNotificationSound = null;
         }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.IO;
 using System.Windows.Forms;
 
 namespace MacroReminder
@@ -33,8 +34,8 @@ namespace MacroReminder
             _notificationPlayer = new NotificationPlayer();
             _macroReminder = new MacroReminder(_macroReminderSettings.DelayMs);
             _hotKeyManager = new HotKeyManager(Handle);
-            
-            _macroReminder.OnReminder += _notificationPlayer.PlayNotification;
+
+            _macroReminder.OnReminder += () => Invoke(new Action(_notificationPlayer.PlayNotification));
             _ticker.OnSmallTick += elapsedTimeMs => Invoke(new Action(() => UpdateTimerValue(elapsedTimeMs)));
             _ticker.OnBigTick += elapsedTimeMs => _macroReminder.BigTick(elapsedTimeMs);
 
@@ -123,6 +124,25 @@ namespace MacroReminder
                 StopTicker();
                 StartTicker();
             }
+        }
+        
+        private void pickSoundButton_Click(object sender, EventArgs e)
+        {
+            var openFileDialogue = new OpenFileDialog();
+            if (openFileDialogue.ShowDialog(this) != DialogResult.OK)
+            {
+                return;
+            }
+            
+            using (var fileStream = File.OpenRead(openFileDialogue.FileName))
+            {
+                _notificationPlayer.SetCustomNotificationSound(fileStream);
+            }
+        }
+
+        private void resetSoundButton_Click(object sender, EventArgs e)
+        {
+            _notificationPlayer.SetDefaultNotificationSound();
         }
     }
 }
