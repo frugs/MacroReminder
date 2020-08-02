@@ -38,7 +38,6 @@ namespace MacroReminder
             _ticker.OnSmallTick += elapsedTimeMs => Invoke(new Action(() => UpdateTimerValue(elapsedTimeMs)));
             _ticker.OnBigTick += elapsedTimeMs => _macroReminder.BigTick(elapsedTimeMs);
 
-            _hotKeyManager.OnHotKey += _notificationPlayer.PlayNotification;
             _hotKeyManager.OnHotKey += StartStop;
             _hotKeyManager.RegisterHotKey();
 
@@ -82,13 +81,18 @@ namespace MacroReminder
             _macroReminder.DelayTimeMs = delayTimeMs;
             _ticker.BigTickIntervalMs = intervalTimeMs;
             _ticker.Start();
+            
+            _notificationPlayer.PlayStartNotification();
         }
 
         private void StopTicker()
         {
             _started = false;
+            _notificationPlayer.PlayStopNotification();
             startStopButton.Text = @"Start";
             _ticker.Stop();
+            
+            
         }
 
         private void StartStop()
