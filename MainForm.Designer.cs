@@ -32,7 +32,6 @@ namespace MacroReminder
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.resetButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.resetSoundButton = new System.Windows.Forms.Button();
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
@@ -40,66 +39,52 @@ namespace MacroReminder
             this.intervalTimeSecondsTextBox = new System.Windows.Forms.TextBox();
             this.delayLabel = new System.Windows.Forms.Label();
             this.intervalLabel = new System.Windows.Forms.Label();
-            this.startStopButton = new System.Windows.Forms.Button();
             this.timerValueLabel = new System.Windows.Forms.Label();
             this.timerLabel = new System.Windows.Forms.Label();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.label4 = new System.Windows.Forms.Label();
             this.delayTimeSecondsTextBox = new System.Windows.Forms.TextBox();
             this.pickSoundButton = new System.Windows.Forms.Button();
+            this.enabledCheckBox = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.autoStartCheckBox = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // resetButton
-            // 
-            this.resetButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.resetButton.Location = new System.Drawing.Point(110, 181);
-            this.resetButton.Name = "resetButton";
-            this.resetButton.Size = new System.Drawing.Size(94, 23);
-            this.resetButton.TabIndex = 4;
-            this.resetButton.Text = "Reset";
-            this.resetButton.UseVisualStyleBackColor = true;
-            this.resetButton.Click += new System.EventHandler(this.resetButton_Click);
-            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Controls.Add(this.resetSoundButton, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.resetSoundButton, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel3, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.delayLabel, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.intervalLabel, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.startStopButton, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.timerValueLabel, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.resetButton, 1, 5);
             this.tableLayoutPanel1.Controls.Add(this.timerLabel, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel2, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.pickSoundButton, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.autoStartCheckBox, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.pickSoundButton, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.enabledCheckBox, 0, 4);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 12);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 6;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.77853F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.77852F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.77852F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.10738F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.77852F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.77852F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(210, 212);
+            this.tableLayoutPanel1.RowCount = 5;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20.00001F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(210, 187);
             this.tableLayoutPanel1.TabIndex = 5;
             // 
             // resetSoundButton
             // 
             this.resetSoundButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.resetSoundButton.Location = new System.Drawing.Point(110, 145);
+            this.resetSoundButton.Location = new System.Drawing.Point(110, 118);
             this.resetSoundButton.Name = "resetSoundButton";
             this.resetSoundButton.Size = new System.Drawing.Size(94, 23);
             this.resetSoundButton.TabIndex = 11;
@@ -113,7 +98,7 @@ namespace MacroReminder
             this.flowLayoutPanel3.Controls.Add(this.label3);
             this.flowLayoutPanel3.Controls.Add(this.intervalTimeSecondsTextBox);
             this.flowLayoutPanel3.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.flowLayoutPanel3.Location = new System.Drawing.Point(108, 39);
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(108, 42);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
             this.flowLayoutPanel3.Size = new System.Drawing.Size(99, 27);
             this.flowLayoutPanel3.TabIndex = 9;
@@ -142,7 +127,7 @@ namespace MacroReminder
             // delayLabel
             // 
             this.delayLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.delayLabel.Location = new System.Drawing.Point(5, 6);
+            this.delayLabel.Location = new System.Drawing.Point(5, 7);
             this.delayLabel.Name = "delayLabel";
             this.delayLabel.Size = new System.Drawing.Size(94, 23);
             this.delayLabel.TabIndex = 6;
@@ -152,28 +137,17 @@ namespace MacroReminder
             // intervalLabel
             // 
             this.intervalLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.intervalLabel.Location = new System.Drawing.Point(5, 41);
+            this.intervalLabel.Location = new System.Drawing.Point(5, 44);
             this.intervalLabel.Name = "intervalLabel";
             this.intervalLabel.Size = new System.Drawing.Size(94, 23);
             this.intervalLabel.TabIndex = 6;
             this.intervalLabel.Text = "Interval:";
             this.intervalLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // startStopButton
-            // 
-            this.startStopButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.startStopButton.Location = new System.Drawing.Point(5, 181);
-            this.startStopButton.Name = "startStopButton";
-            this.startStopButton.Size = new System.Drawing.Size(94, 23);
-            this.startStopButton.TabIndex = 5;
-            this.startStopButton.Text = "Start";
-            this.startStopButton.UseVisualStyleBackColor = true;
-            this.startStopButton.Click += new System.EventHandler(this.startStopButton_Click);
-            // 
             // timerValueLabel
             // 
             this.timerValueLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.timerValueLabel.Location = new System.Drawing.Point(110, 76);
+            this.timerValueLabel.Location = new System.Drawing.Point(110, 81);
             this.timerValueLabel.Name = "timerValueLabel";
             this.timerValueLabel.Size = new System.Drawing.Size(94, 23);
             this.timerValueLabel.TabIndex = 3;
@@ -183,7 +157,7 @@ namespace MacroReminder
             // timerLabel
             // 
             this.timerLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.timerLabel.Location = new System.Drawing.Point(5, 76);
+            this.timerLabel.Location = new System.Drawing.Point(5, 81);
             this.timerLabel.Name = "timerLabel";
             this.timerLabel.Size = new System.Drawing.Size(94, 23);
             this.timerLabel.TabIndex = 1;
@@ -196,7 +170,7 @@ namespace MacroReminder
             this.flowLayoutPanel2.Controls.Add(this.label4);
             this.flowLayoutPanel2.Controls.Add(this.delayTimeSecondsTextBox);
             this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(108, 4);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(108, 5);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
             this.flowLayoutPanel2.Size = new System.Drawing.Size(99, 27);
             this.flowLayoutPanel2.TabIndex = 8;
@@ -225,13 +199,25 @@ namespace MacroReminder
             // pickSoundButton
             // 
             this.pickSoundButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pickSoundButton.Location = new System.Drawing.Point(5, 145);
+            this.pickSoundButton.Location = new System.Drawing.Point(5, 118);
             this.pickSoundButton.Name = "pickSoundButton";
             this.pickSoundButton.Size = new System.Drawing.Size(94, 23);
             this.pickSoundButton.TabIndex = 10;
             this.pickSoundButton.Text = "Pick Sound";
             this.pickSoundButton.UseVisualStyleBackColor = true;
             this.pickSoundButton.Click += new System.EventHandler(this.pickSoundButton_Click);
+            // 
+            // enabledCheckBox
+            // 
+            this.enabledCheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.enabledCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.enabledCheckBox.Location = new System.Drawing.Point(3, 155);
+            this.enabledCheckBox.Name = "enabledCheckBox";
+            this.enabledCheckBox.Size = new System.Drawing.Size(99, 24);
+            this.enabledCheckBox.TabIndex = 12;
+            this.enabledCheckBox.Text = "Enabled:";
+            this.enabledCheckBox.UseVisualStyleBackColor = true;
+            this.enabledCheckBox.CheckedChanged += this.enabledCheckBox_CheckedChanged;
             // 
             // tableLayoutPanel2
             // 
@@ -265,27 +251,15 @@ namespace MacroReminder
             this.label2.Text = "Timer:";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // autoStartCheckBox
-            // 
-            this.autoStartCheckBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.autoStartCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.autoStartCheckBox.Location = new System.Drawing.Point(108, 110);
-            this.autoStartCheckBox.Name = "autoStartCheckBox";
-            this.autoStartCheckBox.Size = new System.Drawing.Size(99, 24);
-            this.autoStartCheckBox.TabIndex = 12;
-            this.autoStartCheckBox.Text = "Auto-start";
-            this.autoStartCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.autoStartCheckBox.UseVisualStyleBackColor = true;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(234, 236);
+            this.ClientSize = new System.Drawing.Size(234, 211);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Icon = ((System.Drawing.Icon) (resources.GetObject("$this.Icon")));
-            this.MaximumSize = new System.Drawing.Size(250, 275);
-            this.MinimumSize = new System.Drawing.Size(250, 275);
+            this.MaximumSize = new System.Drawing.Size(250, 250);
+            this.MinimumSize = new System.Drawing.Size(250, 250);
             this.Name = "MainForm";
             this.Text = "Macro Reminder";
             this.Load += new System.EventHandler(this.MainForm_Load);
@@ -298,7 +272,7 @@ namespace MacroReminder
             this.ResumeLayout(false);
         }
 
-        private System.Windows.Forms.CheckBox autoStartCheckBox;
+        private System.Windows.Forms.CheckBox enabledCheckBox;
 
         private System.Windows.Forms.Button resetSoundButton;
 
@@ -317,15 +291,11 @@ namespace MacroReminder
         private System.Windows.Forms.Label delayLabel;
         private System.Windows.Forms.Label intervalLabel;
 
-        private System.Windows.Forms.Button startStopButton;
-
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-
-        private System.Windows.Forms.Button resetButton;
 
         private System.Windows.Forms.Label timerValueLabel;
 

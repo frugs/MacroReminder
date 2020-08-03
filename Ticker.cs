@@ -6,9 +6,9 @@ namespace MacroReminder
 {
     public class Ticker
     {
-        public Action<long> OnSmallTick = l => { };
+        public Action OnSmallTick = () => { };
 
-        public Action<long> OnBigTick = l => { };
+        public Action OnBigTick = () => { };
         
         private readonly long _smallTickIntervalMs;
 
@@ -70,7 +70,7 @@ namespace MacroReminder
 
                 nextSmallTick += _smallTickIntervalMs;
 
-                OnSmallTick(stopwatch.ElapsedMilliseconds);
+                OnSmallTick();
 
                 if (stopwatch.ElapsedMilliseconds < nextBigTick)
                 {
@@ -79,7 +79,7 @@ namespace MacroReminder
 
                 nextBigTick += BigTickIntervalMs;
 
-                OnBigTick(stopwatch.ElapsedMilliseconds);
+                OnBigTick();
             }
         }
     }

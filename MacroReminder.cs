@@ -4,22 +4,54 @@ namespace MacroReminder
 {
     public class MacroReminder
     {
-
         public Action OnReminder = () => {};
 
-        public MacroReminder(long delayTimeMs)
+        private readonly Sc2Service _sc2Service;
+        private readonly MacroReminderSettings _macroReminderSettings;
+
+        private bool _started;
+        private long _nextReminder;
+
+        public MacroReminder(Sc2Service sc2Service, MacroReminderSettings macroReminderSettings)
         {
-            DelayTimeMs = delayTimeMs;
+            _sc2Service = sc2Service;
+            _macroReminderSettings = macroReminderSettings;
         }
-        
-        public long DelayTimeMs { get; set; }
-        
-        public void BigTick(long elapsedTimeMs)
+
+        public void SmallTick()
         {
-            if (elapsedTimeMs > DelayTimeMs)
+            if (!_started)
             {
-                OnReminder();
+                return;
             }
+
+            if (_sc2Service.EstimateGameTime() < _nextReminder)
+            {
+                return;
+            }
+            
+            OnReminder();
+            while (_nextReminder < _sc2Service.EstimateGameTime())
+            {
+                _nextReminder += _macroReminderSettings.IntervalMs;
+            }
+        }
+
+        public void BigTick()
+        {
+            if (!_sc2Service.HasGameStarted())
+            {
+                _started = false;
+                return;
+            }
+
+            if (!_started)
+            {
+                _nextReminder = _macroReminderSettings.DelayMs;
+                _started = true;
+            }
+
+            _sc2Service.FetchGameTime();
         }
     }
 }
