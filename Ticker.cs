@@ -44,8 +44,8 @@ namespace MacroReminder
         private void TrackTime()
         {
             Stopwatch stopwatch = Stopwatch.StartNew();
-            long nextSmallTick = _smallTickIntervalMs;
-            long nextBigTick = BigTickIntervalMs;
+            long nextSmallTick = 0;
+            long nextBigTick = 0;
             bool aborted = false;
             while (!aborted)
             {
